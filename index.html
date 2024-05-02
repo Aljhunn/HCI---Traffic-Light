@@ -78,21 +78,21 @@
       counter++;
     } else if (counter === 3) {
       toggleLight('red');
-      counter = 0; // Reset counter for next cycle
+      counter = 0;
     }
   }
 
   document.getElementById('controlButton').addEventListener('click', function() {
     if (!isRunning) {
       changeLight();
-      interval = setInterval(changeLight, 50000); // 20 seconds for each light
+      interval = setInterval(changeLight, 50000);
       isRunning = true;
       document.getElementById('controlButton').textContent = 'Stop';
     } else {
       clearInterval(interval);
       isRunning = false;
       document.getElementById('controlButton').textContent = 'Start';
-      counter = 0; // Reset counter to start from red again after stopping
+      counter = 0;
     }
   });
 </script>
