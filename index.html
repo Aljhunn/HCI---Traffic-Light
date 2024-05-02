@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traffic Light</title>
+<style>
+  .traffic-light {
+    width: 100px;
+    height: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: gray;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="traffic-light">
+  <div id="red" class="light"></div>
+  <div id="yellow" class="light"></div>
+  <div id="green" class="light"></div>
+</div>
+
+<button id="controlButton">Start</button>
+
+<script>
+  var lights = document.querySelectorAll('.light');
+  var interval;
+  var isRunning = false;
+  var counter = 0;
+
+  function toggleLight(color) {
+    lights.forEach(light => {
+      if (light.id === color) {
+        light.style.backgroundColor = color;
+      } else {
+        light.style.backgroundColor = 'gray';
+      }
+    });
+  }
+
+  function changeLight() {
+    var red = document.getElementById('red');
+    var yellow = document.getElementById('yellow');
+    var green = document.getElementById('green');
+
+    if (counter === 0) {
+      toggleLight('red');
+      counter++;
+    } else if (counter === 1) {
+      toggleLight('yellow');
+      counter++;
+    } else if (counter === 2) {
+      toggleLight('green');
+      counter++;
+    } else if (counter === 3) {
+      toggleLight('red');
+      counter = 0; // Reset counter for next cycle
+    }
+  }
+
+  document.getElementById('controlButton').addEventListener('click', function() {
+    if (!isRunning) {
+      changeLight();
+      interval = setInterval(changeLight, 50000); // 20 seconds for each light
+      isRunning = true;
+      document.getElementById('controlButton').textContent = 'Stop';
+    } else {
+      clearInterval(interval);
+      isRunning = false;
+      document.getElementById('controlButton').textContent = 'Start';
+      counter = 0; // Reset counter to start from red again after stopping
+    }
+  });
+</script>
+
+</body>
+</html>
